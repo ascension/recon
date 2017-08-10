@@ -27,11 +27,22 @@
     "type": "git",
     "url": "https://github.com/ascension/recon.git"
   },
-  "keywords": ["redux", "reselect", "fsa", "react"],
+  "keywords": [
+    "redux",
+    "reselect",
+    "fsa",
+    "react"
+  ],
   "author": "Jerrod Bunce",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ascension/recon/issues"
   },
-  "homepage": "https://github.com/ascension/recon"
+  "homepage": "https://github.com/ascension/recon",
+  "dependencies": {
+    "babel-plugin-transform-es2015-spread": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "prettier-eslint": "^6.4.2",
+    "reselect": "^3.0.1"
+  }
 }
