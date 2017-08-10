@@ -15,3 +15,20 @@ That is where Redux Controller comes in.
 A Controller configures and manages a specific slice of the store, actions, reducer and selectors.
 
 ## Redux Controller
+
+### Action Handlers
+The are the functions which have the responsibilty of updating the store when an action is dispatched. Most redux tutorials/implementations use a switch statement. A `ReduxController` will return a reducer that uses an `Object` to map an action to its handler function. 
+
+[ ] - Should allow user to create actions
+[ ] - Should return an object with a prop of reducer
+[ ] - Should allow user to define selectors 
+[ ] - Should allow user to easily use an action in multiple reducers.
+[ ] - Provides HOC for dispatching actions to fetch data required for a component.
+[ ] - 
+[ ] - 
+
+## Considerations
+
+Namespacing for redux actions is important but how should it be name?
+- should it be named after the slice/substate the controller or action is part of?
+- should we allow a actionPrefix to be passed/configured?
