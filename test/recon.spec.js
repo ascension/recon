@@ -53,6 +53,21 @@ describe('Redux Controller', () => {
     expect(expectedAction).to.have.all.members(actualActions);
   });
 
+  describe('actions', () => {
+    it('should have a property of `type`', () => {
+      const { actions } = testController;
+
+      const actualActions = Object.keys(actions);
+
+      actualActions.forEach(key => {
+        const action = actions[key];
+
+        expect(action).to.have.property('type');
+        expect(action.type).to.be.eql(key);
+      });
+    });
+  });
+
   it('should return proper selector', () => {
     const { selectors } = testController;
 
@@ -60,5 +75,44 @@ describe('Redux Controller', () => {
     const expectedSelectors = ['getUsers'];
 
     expect(expectedSelectors).to.have.all.members(actualSelectors);
+  });
+
+  it('should have a reducer function', () => {
+    const { reducer } = testController;
+
+    expect(reducer).to.be.a('function');
+  });
+
+  it('should handle an action and update state properly', () => {
+    const { reducer, actions: { updateEmail } } = testController;
+    const mockAction = updateEmail(1, 'test@example.com');
+
+    expect(mockAction).to.have.property('type');
+    expect(mockAction).to.have.property('payload');
+
+    const { type, payload } = mockAction;
+
+    expect(type).to.equal('updateEmail');
+    expect(payload).to.have.property('userId');
+    expect(payload).to.have.property('email');
+
+    const newState = reducer(initialState, mockAction);
+
+    expect(newState).to.have.property('users');
+    expect(newState).to.be.eql({ users: { '1': { name: 'Johnny', email: 'test@example.com' } } });
+  });
+
+  describe('selector', () => {
+    it('should be a function', () => {
+      const { selectors: { getUsers } } = testController;
+
+      expect(getUsers).to.be.a('function');
+    });
+    it('should return the proper value for a state fragement', () => {
+      const mockState = initialState;
+      const { selectors: { getUsers } } = testController;
+
+      expect(getUsers(mockState)).to.be.eql(mockState.users);
+    });
   });
 });

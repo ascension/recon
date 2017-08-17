@@ -1,10 +1,10 @@
-// import { createSelector } from 'reselect';
+import invariant from 'invariant';
 
 export const reduxController = (initialState = {}, actionHandlers = {}, selectors = {}, fragment = '') => {
   function reducer(state = initialState, { type, payload } = {}) {
-    const handler = actionHandlers[type];
+    const action = actionHandlers[type];
 
-    return handler ? handler(state, payload) : state;
+    return action && typeof action.handler === 'function' ? action.handler(state, payload) : state;
   }
 
   const mappedSelectors = Object.keys(selectors).reduce(
@@ -15,24 +15,24 @@ export const reduxController = (initialState = {}, actionHandlers = {}, selector
     {}
   );
 
-  //   const actions = {};
   // Map action handlers to actions
-  const actions = Object.keys(actionHandlers).reduce(
-    (actionsObj, key) =>
-      Object.assign({}, actionsObj, {
-        [key]: Object.assign(
-          (...args) => ({
-            type: `${key}`,
-            payload:
-              typeof actionHandlers[key].createPayload === 'function' ?
-                actionHandlers[key].createPayload(...args) :
-                undefined
-          }),
-          { type: `${key}` } // allows us to call action.type = 'updateEmail'
-        )
-      }),
-    {}
-  );
+  const actions = Object.keys(actionHandlers).reduce((actionsObj, key) => {
+    invariant(actionsObj['key'], `You must provide actions with a unique key. Please check for a duplicate of ${key}`);
+    invariant(key !== '', "An action must not be '' ");
+
+    return Object.assign({}, actionsObj, {
+      [key]: Object.assign(
+        (...args) => ({
+          type: `${key}`,
+          payload:
+            typeof actionHandlers[key].createPayload === 'function' ?
+              actionHandlers[key].createPayload(...args) :
+              undefined
+        }),
+        { type: `${key}` } // allows us to call action.type = 'updateEmail'
+      )
+    });
+  }, {});
 
   return {
     initial: initialState,

@@ -1,0 +1,36 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+
+    working_directory: ~/recon
+
+    steps:
+      - checkout
+
+      - run: sudo npm i -g yarn
+
+      - restore_cache:
+          keys:
+            - yarn-{{ checksum "yarn.lock" }}
+            - yarn-
+
+      - run: yarn
+
+      - save_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+            - node_modules
+
+      - run: yarn build
+
+      - run: curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./test-reporter
+      - run: chmod +x ./test-reporter
+      - run: ./test-reporter before-build
+      - run: yarn test -- --no-cache --runInBand; ./test-reporter after-build --exit-code $?
+
+      - store_artifacts:
+          path: coverage/lcov-report
+          destination: coverage
