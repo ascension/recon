@@ -3,6 +3,9 @@ pipeline:
     image: node:latest
     commands: npm install
   test:
-    image: node:latest
-    commands: npm run test
- 
+    image: node
+    commands:
+      - npm install
+      - npm test
+    when:
+      events: [push, pull_request]
