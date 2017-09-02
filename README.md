@@ -1,6 +1,9 @@
 # recon
 Redux Controller Pattern
 
+[![Code Climate](https://codeclimate.com/github/ascension/recon/badges/gpa.svg)](https://codeclimate.com/github/ascension/recon)
+[![Test Coverage](https://codeclimate.com/github/ascension/recon/badges/coverage.svg)](https://codeclimate.com/github/ascension/recon/coverage)
+
 ## Status: In Developement
 This library is currently in developement and open to suggestions.
 

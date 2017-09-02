@@ -1,6 +1,6 @@
 {
-  "name": "recon",
-  "version": "0.1.0",
+  "name": "redux-recon",
+  "version": "1.0.0",
   "description": "Redux Controller",
   "main": "lib/library.js",
   "scripts": {
@@ -27,12 +27,7 @@
     "type": "git",
     "url": "https://github.com/ascension/recon.git"
   },
-  "keywords": [
-    "redux",
-    "reselect",
-    "fsa",
-    "react"
-  ],
+  "keywords": ["redux", "reselect", "fsa", "react"],
   "author": "Jerrod Bunce",
   "license": "MIT",
   "bugs": {
@@ -44,6 +39,6 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "prettier-eslint": "^6.4.2",
     "reselect": "^3.0.1",
-    "invariant": "^2.2.2"    
+    "invariant": "^2.2.2"
   }
 }

@@ -3,7 +3,7 @@ import invariant from 'invariant';
 export const reduxController = (initialState = {}, actionHandlers = {}, selectors = {}, fragment = '') => {
   function reducer(state = initialState, { type, payload } = {}) {
     const action = actionHandlers[type];
-
+    // TODO - Handle action being a function
     return action && typeof action.handler === 'function' ? action.handler(state, payload) : state;
   }
 
